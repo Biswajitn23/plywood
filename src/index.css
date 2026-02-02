@@ -1,0 +1,267 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@300;400;500;600&family=Inter:wght@300;400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Luxury Dark */
+    --background: 220 15% 8%;
+    --foreground: 40 20% 92%;
+
+    /* Cards - Slightly lighter dark */
+    --card: 220 12% 12%;
+    --card-foreground: 40 20% 92%;
+
+    /* Popover */
+    --popover: 220 12% 12%;
+    --popover-foreground: 40 20% 92%;
+
+    /* Primary - Champagne Gold */
+    --primary: 43 45% 65%;
+    --primary-foreground: 220 15% 8%;
+
+    /* Secondary - Warm Cream */
+    --secondary: 40 25% 94%;
+    --secondary-foreground: 220 15% 12%;
+
+    /* Muted - Warm Grey */
+    --muted: 220 10% 18%;
+    --muted-foreground: 40 10% 60%;
+
+    /* Accent - Brushed Bronze */
+    --accent: 30 35% 45%;
+    --accent-foreground: 40 20% 95%;
+
+    /* Destructive */
+    --destructive: 0 62% 50%;
+    --destructive-foreground: 40 20% 95%;
+
+    /* Borders & Inputs */
+    --border: 220 10% 20%;
+    --input: 220 10% 20%;
+    --ring: 43 45% 65%;
+
+    --radius: 0.25rem;
+
+    /* Custom Luxury Colors */
+    --cream: 40 25% 94%;
+    --cream-foreground: 220 15% 12%;
+    --charcoal: 220 15% 8%;
+    --charcoal-light: 220 12% 15%;
+    --champagne: 43 45% 65%;
+    --bronze: 30 35% 45%;
+    --warm-grey: 30 10% 50%;
+
+    /* Gradients */
+    --gradient-gold: linear-gradient(135deg, hsl(43, 45%, 65%), hsl(30, 35%, 50%));
+    --gradient-dark: linear-gradient(180deg, hsl(220, 15%, 8%), hsl(220, 12%, 12%));
+    --gradient-cream: linear-gradient(180deg, hsl(40, 25%, 96%), hsl(40, 20%, 92%));
+
+    /* Shadows */
+    --shadow-soft: 0 4px 30px -10px hsl(0 0% 0% / 0.3);
+    --shadow-elevated: 0 20px 60px -20px hsl(0 0% 0% / 0.5);
+    --shadow-glow: 0 0 40px -10px hsl(43, 45%, 65%, 0.3);
+
+    /* Sidebar */
+    --sidebar-background: 220 15% 8%;
+    --sidebar-foreground: 40 20% 92%;
+    --sidebar-primary: 43 45% 65%;
+    --sidebar-primary-foreground: 220 15% 8%;
+    --sidebar-accent: 220 12% 15%;
+    --sidebar-accent-foreground: 40 20% 92%;
+    --sidebar-border: 220 10% 20%;
+    --sidebar-ring: 43 45% 65%;
+  }
+
+  .light {
+    --background: 40 25% 96%;
+    --foreground: 220 15% 12%;
+    --card: 0 0% 100%;
+    --card-foreground: 220 15% 12%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 15% 12%;
+    --muted: 40 15% 90%;
+    --muted-foreground: 220 10% 40%;
+    --border: 40 15% 85%;
+    --input: 40 15% 85%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Inter', sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Playfair Display', serif;
+  }
+}
+
+@layer components {
+  .section-dark {
+    @apply bg-background text-foreground;
+  }
+
+  .section-cream {
+    @apply bg-cream text-cream-foreground;
+    background: linear-gradient(180deg, hsl(var(--cream)), hsl(40, 20%, 92%));
+  }
+
+  .heading-display {
+    @apply font-serif tracking-[0.2em] uppercase font-light;
+  }
+
+  .heading-elegant {
+    @apply font-serif tracking-wide font-light;
+  }
+
+  .text-champagne {
+    color: hsl(var(--champagne));
+  }
+
+  .text-bronze {
+    color: hsl(var(--bronze));
+  }
+
+  .gradient-text {
+    background: linear-gradient(135deg, hsl(var(--champagne)), hsl(var(--bronze)));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .glow-text {
+    text-shadow: 0 0 40px hsl(var(--champagne) / 0.4);
+  }
+
+  .luxury-card {
+    @apply bg-card rounded-sm;
+    box-shadow: var(--shadow-elevated);
+    transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1), 
+                box-shadow 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+  }
+
+  .luxury-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-elevated), var(--shadow-glow);
+  }
+
+  .product-panel {
+    @apply relative overflow-hidden rounded-sm;
+    box-shadow: 0 10px 40px -15px hsl(0 0% 0% / 0.2);
+    transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+  }
+
+  .product-panel:hover {
+    transform: translateY(-12px) scale(1.02);
+    box-shadow: 0 30px 60px -20px hsl(0 0% 0% / 0.3);
+  }
+
+  .btn-luxury {
+    @apply inline-flex items-center justify-center px-8 py-4 text-sm tracking-[0.15em] uppercase font-medium transition-all duration-500;
+    border: 1px solid hsl(var(--champagne) / 0.4);
+    color: hsl(var(--champagne));
+    background: transparent;
+  }
+
+  .btn-luxury:hover {
+    background: hsl(var(--champagne));
+    color: hsl(var(--charcoal));
+    box-shadow: var(--shadow-glow);
+  }
+
+  .btn-luxury-solid {
+    @apply inline-flex items-center justify-center px-8 py-4 text-sm tracking-[0.15em] uppercase font-medium transition-all duration-500;
+    background: hsl(var(--champagne));
+    color: hsl(var(--charcoal));
+  }
+
+  .btn-luxury-solid:hover {
+    background: hsl(43, 50%, 70%);
+    box-shadow: var(--shadow-glow);
+    transform: translateY(-2px);
+  }
+
+  .divider-gold {
+    @apply h-px w-16;
+    background: linear-gradient(90deg, transparent, hsl(var(--champagne)), transparent);
+  }
+
+  .divider-gold-wide {
+    @apply h-px w-32;
+    background: linear-gradient(90deg, transparent, hsl(var(--champagne)), transparent);
+  }
+}
+
+@layer utilities {
+  .animate-fade-in {
+    animation: fadeIn 0.8s ease-out forwards;
+  }
+
+  .animate-fade-in-up {
+    animation: fadeInUp 0.8s ease-out forwards;
+  }
+
+  .animate-fade-in-delay {
+    animation: fadeIn 0.8s ease-out 0.3s forwards;
+    opacity: 0;
+  }
+
+  .animate-scale-in {
+    animation: scaleIn 0.6s ease-out forwards;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes fadeInUp {
+    from { 
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to { 
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes scaleIn {
+    from { 
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    to { 
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  .hover-lift {
+    @apply transition-transform duration-500;
+  }
+
+  .hover-lift:hover {
+    transform: translateY(-4px);
+  }
+
+  .image-zoom {
+    @apply transition-transform duration-700;
+  }
+
+  .image-zoom:hover {
+    transform: scale(1.05);
+  }
+}
