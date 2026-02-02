@@ -37,13 +37,19 @@ const Footer = () => {
               Explore
             </h4>
             <ul className="space-y-3">
-              {["Collections", "Products", "About Us", "Journal", "Careers"].map((link) => (
-                <li key={link}>
+              {[
+                { label: "Collections", href: "#collections" },
+                { label: "Products", href: "#products" },
+                { label: "About Us", href: "#about" },
+                { label: "Journal", href: "#journal" },
+                { label: "Careers", href: "#careers" }
+              ].map((link) => (
+                <li key={link.label}>
                   <a
-                    href="#"
+                    href={link.href}
                     className="text-sm text-muted-foreground hover:text-foreground transition-colors"
                   >
-                    {link}
+                    {link.label}
                   </a>
                 </li>
               ))}
@@ -78,7 +84,7 @@ const Footer = () => {
               <li className="flex items-start gap-3">
                 <MapPin size={18} className="text-champagne mt-0.5 flex-shrink-0" />
                 <span className="text-sm text-muted-foreground">
-                  Opposite Gargee Grand, NEar Mohini Market, Exhibition Rd, Patna, Bihar 800001
+                  Opposite Gargee Grand, Near Mohini Market, Exhibition Rd, Patna, Bihar 800001
                 </span>
               </li>
               <li className="flex items-center gap-3">

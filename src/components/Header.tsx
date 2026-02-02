@@ -26,17 +26,17 @@ const Header = () => {
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         isScrolled
           ? "bg-background/95 backdrop-blur-md border-b border-border/50"
-          : "bg-transparent"
+          : "bg-black/30 backdrop-blur-sm"
       }`}
     >
       <div className="container mx-auto px-6 lg:px-12">
         <div className="flex items-center justify-between h-20 lg:h-24">
           {/* Logo */}
           <a href="/" className="flex flex-col">
-            <span className="font-serif text-xl lg:text-2xl tracking-[0.15em] text-foreground">
+            <span className="font-serif text-xl lg:text-2xl tracking-[0.15em] text-white">
               PLYWOOD HOME
             </span>
-            <span className="text-[10px] tracking-[0.2em] text-muted-foreground uppercase">
+            <span className="text-[10px] tracking-[0.2em] text-white/70 uppercase">
               A House of Trust Since 1976
             </span>
           </a>
@@ -47,7 +47,7 @@ const Header = () => {
               <a
                 key={item.label}
                 href={item.href}
-                className="relative text-xs tracking-[0.15em] uppercase text-muted-foreground hover:text-foreground transition-colors duration-300 after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-px after:bottom-0 after:left-0 after:bg-primary after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left"
+                className="relative text-xs tracking-[0.15em] uppercase text-white/90 hover:text-white transition-colors duration-300 after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-px after:bottom-0 after:left-0 after:bg-bronze after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left"
               >
                 {item.label}
               </a>
@@ -63,7 +63,7 @@ const Header = () => {
 
           {/* Mobile Menu Button */}
           <button
-            className="lg:hidden text-foreground p-2"
+            className="lg:hidden text-white p-2"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             aria-label="Toggle menu"
           >
@@ -82,7 +82,7 @@ const Header = () => {
               <a
                 key={item.label}
                 href={item.href}
-                className="text-sm tracking-[0.15em] uppercase text-muted-foreground hover:text-foreground transition-colors"
+                className="text-sm tracking-[0.15em] uppercase text-white/90 hover:text-white transition-colors"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 {item.label}

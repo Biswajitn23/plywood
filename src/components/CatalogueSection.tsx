@@ -34,6 +34,13 @@ const CatalogueSection = () => {
     }
   };
 
+  const handleClearFile = () => {
+    setFile(null);
+    setFileName("");
+    const fileInput = document.getElementById("fileInput") as HTMLInputElement;
+    if (fileInput) fileInput.value = "";
+  };
+
   const handleUpload = () => {
     if (!file) return;
 
@@ -63,7 +70,7 @@ const CatalogueSection = () => {
           </div>
 
           {/* Content Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6">
             {/* Download Section */}
             <div className="bg-cream p-8 lg:p-10 rounded-lg shadow-lg">
               <div className="flex items-center gap-3 mb-6">
@@ -75,12 +82,11 @@ const CatalogueSection = () => {
               <p className="text-gray-700 mb-8">
                 Access our comprehensive catalogue featuring all our premium plywood collections, specifications, and finishes.
               </p>
-              <Button className="w-full btn-luxury-solid">
-                Download PDF (2.4 MB)
-              </Button>
-              <p className="text-xs text-gray-500 mt-4 text-center">
-                Updated: January 2026
-              </p>
+              <a href="/cudecor_E_catlouge_.pdf" download>
+                <Button className="w-full btn-luxury-solid">
+                  Download PDF (55.2 MB)
+                </Button>
+              </a>
             </div>
 
             {/* Upload Section */}
@@ -124,13 +130,34 @@ const CatalogueSection = () => {
                 </label>
               </div>
 
-              <Button 
-                onClick={handleUpload} 
-                disabled={!file}
-                className="w-full btn-luxury-solid mt-6"
-              >
-                {fileName ? "Upload File" : "Select File"}
-              </Button>
+              <p className="text-[10px] text-gray-500 mt-3 text-center">
+                Note: Upload will open your email client to submit the file
+              </p>
+
+              {file ? (
+                <div className="grid grid-cols-2 gap-3 mt-6">
+                  <Button 
+                    onClick={handleClearFile}
+                    variant="outline"
+                    className="w-full border-2 border-gray-300 hover:border-red-500 hover:bg-red-50 hover:text-red-600"
+                  >
+                    Cancel
+                  </Button>
+                  <Button 
+                    onClick={handleUpload}
+                    className="w-full btn-luxury-solid"
+                  >
+                    Upload File
+                  </Button>
+                </div>
+              ) : (
+                <Button 
+                  disabled
+                  className="w-full btn-luxury-solid mt-6 opacity-50"
+                >
+                  Select File
+                </Button>
+              )}
             </div>
           </div>
         </div>

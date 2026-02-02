@@ -4,8 +4,25 @@ import { Textarea } from "@/components/ui/textarea";
 import { Mail, Phone, MapPin, Instagram } from "lucide-react";
 
 const QuerySection = () => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    
+    const formData = new FormData(e.currentTarget);
+    const name = formData.get("name");
+    const email = formData.get("email");
+    const phone = formData.get("phone");
+    const subject = formData.get("subject");
+    const message = formData.get("message");
+
+    const mailSubject = `Query: ${subject}`;
+    const mailBody = `Name: ${name}\nEmail: ${email}\nPhone: ${phone || "Not provided"}\n\nMessage:\n${message}`;
+
+    const mailtoLink = `mailto:sales@plywoodhome.com?subject=${encodeURIComponent(mailSubject)}&body=${encodeURIComponent(mailBody)}`;
+    window.location.href = mailtoLink;
+  };
+
   return (
-    <section className="py-20 lg:py-28 bg-cream">
+    <section className="py-20 lg:py-28 bg-cream" id="contact">
       <div className="container mx-auto px-6 lg:px-12">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-20">
           {/* Left Column - Contact Info */}
@@ -53,7 +70,7 @@ const QuerySection = () => {
                 <div>
                   <h3 className="font-medium text-cream-foreground mb-1">Visit Us</h3>
                   <p className="text-muted-foreground">Opposite Gargee Grand,</p>
-                  <p className="text-muted-foreground">NEar Mohini Market,</p>
+                  <p className="text-muted-foreground">Near Mohini Market,</p>
                   <p className="text-muted-foreground">Exhibition Rd, Patna,</p>
                   <p className="text-muted-foreground">Bihar 800001</p>
                 </div>
@@ -80,16 +97,17 @@ const QuerySection = () => {
 
           {/* Right Column - Contact Form */}
           <div className="bg-background p-8 lg:p-10 rounded-lg shadow-xl">
-            <form className="space-y-6">
+            <form className="space-y-6" onSubmit={handleSubmit}>
               <div>
                 <label htmlFor="name" className="block text-sm font-semibold text-white mb-2">
                   Full Name *
                 </label>
                 <Input 
-                  id="name" 
+                  id="name"
+                  name="name"
                   placeholder="Enter your name" 
                   required 
-                  className="bg-cream border-bronze/20 focus:border-bronze"
+                  className="bg-cream border-bronze/20 focus:border-bronze text-black"
                 />
               </div>
 
@@ -98,11 +116,12 @@ const QuerySection = () => {
                   Email Address *
                 </label>
                 <Input 
-                  id="email" 
+                  id="email"
+                  name="email"
                   type="email" 
                   placeholder="Enter your email" 
                   required 
-                  className="bg-cream border-bronze/20 focus:border-bronze"
+                  className="bg-cream border-bronze/20 focus:border-bronze text-black"
                 />
               </div>
 
@@ -111,10 +130,11 @@ const QuerySection = () => {
                   Phone Number
                 </label>
                 <Input 
-                  id="phone" 
+                  id="phone"
+                  name="phone"
                   type="tel" 
                   placeholder="Enter your phone number" 
-                  className="bg-cream border-bronze/20 focus:border-bronze"
+                  className="bg-cream border-bronze/20 focus:border-bronze text-black"
                 />
               </div>
 
@@ -123,10 +143,11 @@ const QuerySection = () => {
                   Subject *
                 </label>
                 <Input 
-                  id="subject" 
+                  id="subject"
+                  name="subject"
                   placeholder="What is this regarding?" 
                   required 
-                  className="bg-cream border-bronze/20 focus:border-bronze"
+                  className="bg-cream border-bronze/20 focus:border-bronze text-black"
                 />
               </div>
 
@@ -135,11 +156,12 @@ const QuerySection = () => {
                   Message *
                 </label>
                 <Textarea 
-                  id="message" 
+                  id="message"
+                  name="message"
                   placeholder="Tell us about your project or query..." 
                   rows={5} 
                   required 
-                  className="bg-cream border-bronze/20 focus:border-bronze resize-none"
+                  className="bg-cream border-bronze/20 focus:border-bronze resize-none text-black"
                 />
               </div>
 
@@ -149,6 +171,10 @@ const QuerySection = () => {
               >
                 Send Message
               </Button>
+
+              <p className="text-[10px] text-gray-400 text-center">
+                Note: This will open your email client to send your query
+              </p>
             </form>
           </div>
         </div>
