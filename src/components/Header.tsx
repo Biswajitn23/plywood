@@ -14,9 +14,9 @@ const Header = () => {
   }, []);
 
   const navItems = [
-    { label: "Collections", href: "#collections" },
-    { label: "Products", href: "#products" },
     { label: "About", href: "#about" },
+    { label: "Products", href: "#products" },
+    { label: "Collections", href: "#collections" },
     { label: "Journal", href: "#journal" },
     { label: "Contact", href: "#contact" },
   ];
@@ -56,7 +56,7 @@ const Header = () => {
 
           {/* CTA Button */}
           <div className="hidden lg:block">
-            <a href="#contact" className="btn-luxury text-xs py-3 px-6">
+            <a href="#upload" className="btn-luxury text-xs py-3 px-6">
               Request Samples
             </a>
           </div>
@@ -88,7 +88,7 @@ const Header = () => {
                 {item.label}
               </a>
             ))}
-            <a href="#contact" className="btn-luxury text-xs py-3 px-6 text-center mt-4">
+            <a href="#upload" className="btn-luxury text-xs py-3 px-6 text-center mt-4">
               Request Samples
             </a>
           </nav>

@@ -47,8 +47,14 @@ const QuerySection = () => {
                 </div>
                 <div>
                   <h3 className="font-medium text-cream-foreground mb-1">Phone</h3>
-                  <p className="text-muted-foreground">+91 7677181818</p>
+                  <a
+                    href="tel:+917677181818"
+                    className="text-muted-foreground hover:text-bronze transition-colors"
+                  >
+                    +91 7677181818
+                  </a>
                   <p className="text-muted-foreground">Mon - Sat: 9:00 AM - 6:00 PM</p>
+                  <p className="text-muted-foreground">Sunday: 10:00 AM - 4:00 PM</p>
                 </div>
               </div>
 
@@ -58,8 +64,18 @@ const QuerySection = () => {
                 </div>
                 <div>
                   <h3 className="font-medium text-cream-foreground mb-1">Email</h3>
-                  <p className="text-muted-foreground">info@plywoodhome.com</p>
-                  <p className="text-muted-foreground">sales@plywoodhome.com</p>
+                  <a
+                    href="mailto:info@plywoodhome.com"
+                    className="text-muted-foreground hover:text-bronze transition-colors"
+                  >
+                    info@plywoodhome.com
+                  </a>
+                  <a
+                    href="mailto:sales@plywoodhome.com"
+                    className="text-muted-foreground hover:text-bronze transition-colors"
+                  >
+                    sales@plywoodhome.com
+                  </a>
                 </div>
               </div>
 
@@ -69,10 +85,20 @@ const QuerySection = () => {
                 </div>
                 <div>
                   <h3 className="font-medium text-cream-foreground mb-1">Visit Us</h3>
-                  <p className="text-muted-foreground">Opposite Gargee Grand,</p>
-                  <p className="text-muted-foreground">Near Mohini Market,</p>
-                  <p className="text-muted-foreground">Exhibition Rd, Patna,</p>
-                  <p className="text-muted-foreground">Bihar 800001</p>
+                  <a
+                    href="https://maps.app.goo.gl/J1NQduAHRLH878RMA"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-muted-foreground hover:text-bronze transition-colors"
+                  >
+                    Opposite Gargee Grand,
+                    <br />
+                    Near Mohini Market,
+                    <br />
+                    Exhibition Rd, Patna,
+                    <br />
+                    Bihar 800001
+                  </a>
                 </div>
               </div>
 

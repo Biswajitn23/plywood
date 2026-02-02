@@ -38,11 +38,11 @@ const Footer = () => {
             </h4>
             <ul className="space-y-3">
               {[
-                { label: "Collections", href: "#collections" },
-                { label: "Products", href: "#products" },
                 { label: "About Us", href: "#about" },
+                { label: "Products", href: "#products" },
+                { label: "Collections", href: "#collections" },
                 { label: "Journal", href: "#journal" },
-                { label: "Careers", href: "#careers" }
+                { label: "Contact", href: "#contact" }
               ].map((link) => (
                 <li key={link.label}>
                   <a
@@ -83,9 +83,14 @@ const Footer = () => {
             <ul className="space-y-4">
               <li className="flex items-start gap-3">
                 <MapPin size={18} className="text-champagne mt-0.5 flex-shrink-0" />
-                <span className="text-sm text-muted-foreground">
+                <a
+                  href="https://maps.app.goo.gl/J1NQduAHRLH878RMA"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                >
                   Opposite Gargee Grand, Near Mohini Market, Exhibition Rd, Patna, Bihar 800001
-                </span>
+                </a>
               </li>
               <li className="flex items-center gap-3">
                 <Phone size={18} className="text-champagne flex-shrink-0" />

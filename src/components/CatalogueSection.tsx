@@ -90,7 +90,7 @@ const CatalogueSection = () => {
             </div>
 
             {/* Upload Section */}
-            <div className="bg-cream p-8 lg:p-10 rounded-lg shadow-lg">
+            <div id="upload" className="bg-cream p-8 lg:p-10 rounded-lg shadow-lg">
               <div className="flex items-center gap-3 mb-6">
                 <div className="w-10 h-10 rounded-full bg-bronze/10 flex items-center justify-center">
                   <FileUp className="w-5 h-5 text-bronze" />
