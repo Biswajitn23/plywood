@@ -67,6 +67,8 @@ const BlogSection = () => {
                   src={article.image}
                   alt={article.title}
                   className="w-full aspect-[4/3] object-cover transition-transform duration-700 group-hover:scale-105"
+                  loading="lazy"
+                  decoding="async"
                 />
               </div>
 

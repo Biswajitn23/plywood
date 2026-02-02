@@ -3,28 +3,13 @@ import { Button } from "@/components/ui/button";
 import { FileUp, Download } from "lucide-react";
 
 const CatalogueSection = () => {
-  const [fileName, setFileName] = useState<string>("");
   const [file, setFile] = useState<File | null>(null);
-  const [isDragging, setIsDragging] = useState(false);
-
-  const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
-    e.preventDefault();
-    setIsDragging(true);
-  };
-
-  const handleDragLeave = () => {
-    setIsDragging(false);
-  };
-
-  const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
-    e.preventDefault();
-    setIsDragging(false);
-    const files = e.dataTransfer.files;
-    if (files.length > 0) {
-      setFile(files[0]);
-      setFileName(files[0].name);
-    }
-  };
+  const [fileName, setFileName] = useState<string>("");
+  const [name, setName] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [phone, setPhone] = useState<string>("");
+  const [isUploading, setIsUploading] = useState(false);
+  const [uploadSuccess, setUploadSuccess] = useState(false);
 
   const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
@@ -34,21 +19,103 @@ const CatalogueSection = () => {
     }
   };
 
-  const handleClearFile = () => {
-    setFile(null);
-    setFileName("");
-    const fileInput = document.getElementById("fileInput") as HTMLInputElement;
-    if (fileInput) fileInput.value = "";
-  };
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!file || !name || !email || !phone) return;
 
-  const handleUpload = () => {
-    if (!file) return;
+    setIsUploading(true);
 
-    const subject = "Project Specifications Submission";
-    const body = `Hello,\n\nI am submitting the following file for your review:\n\nFile Name: ${file.name}\nFile Size: ${(file.size / 1024).toFixed(2)} KB\n\nPlease find the attached file and let me know your recommendations.\n\nThank you,\nBest regards`;
+    const cloudName = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME;
+    const uploadPreset = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET;
 
-    const mailtoLink = `mailto:sales@plywoodhome.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    window.location.href = mailtoLink;
+    if (!cloudName || !uploadPreset) {
+      alert("Cloudinary is not configured. Please set VITE_CLOUDINARY_CLOUD_NAME and VITE_CLOUDINARY_UPLOAD_PRESET.");
+      setIsUploading(false);
+      return;
+    }
+
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("upload_preset", uploadPreset);
+
+      const response = await fetch(`https://api.cloudinary.com/v1_1/${cloudName}/auto/upload`, {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!response.ok) {
+        throw new Error("Upload failed");
+      }
+
+      const data = await response.json();
+      const fileUrl = data.secure_url as string;
+
+      // Store submission in localStorage for admin page (link only)
+      const submission = {
+        id: Date.now(),
+        name,
+        email,
+        phone,
+        fileName: file.name,
+        fileSize: (file.size / 1024).toFixed(2) + ' KB',
+        fileUrl,
+        timestamp: new Date().toISOString(),
+      };
+
+      const existingSubmissions = JSON.parse(localStorage.getItem('fileSubmissions') || '[]');
+      existingSubmissions.push(submission);
+      localStorage.setItem('fileSubmissions', JSON.stringify(existingSubmissions));
+
+      // Send webhook notification to Make.com
+      const webhookUrl = import.meta.env.VITE_MAKE_WEBHOOK_URL;
+      if (webhookUrl && webhookUrl !== 'your-make-webhook-url-here') {
+        try {
+          await fetch(webhookUrl, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              name,
+              email,
+              phone,
+              fileName: file.name,
+              fileSize: (file.size / 1024).toFixed(2) + ' KB',
+              fileUrl,
+              timestamp: new Date().toLocaleString(),
+            }),
+          });
+        } catch (error) {
+          console.log('Webhook notification failed:', error);
+        }
+      }
+
+      const emailAddress = "sales@plywoodhome.com";
+      
+      // Email notification
+      const emailSubject = "New File Submission";
+      const emailBody = `New file submission received:\n\nName: ${name}\nEmail: ${email}\nPhone: ${phone}\nFile: ${file.name}\nSize: ${(file.size / 1024).toFixed(2)} KB\nLink: ${fileUrl}\n\nPlease check the admin panel for details.`;
+      
+      const mailtoLink = `mailto:${emailAddress}?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
+      window.location.href = mailtoLink;
+      
+      // Show success and reset
+      setIsUploading(false);
+      setUploadSuccess(true);
+      
+      setTimeout(() => {
+        setFile(null);
+        setFileName("");
+        setName("");
+        setEmail("");
+        setPhone("");
+        setUploadSuccess(false);
+      }, 3000);
+    } catch (error) {
+      alert("Upload failed. Please try again.");
+      setIsUploading(false);
+    }
   };
 
   return (
@@ -77,16 +144,34 @@ const CatalogueSection = () => {
                 <div className="w-10 h-10 rounded-full bg-bronze/10 flex items-center justify-center">
                   <Download className="w-5 h-5 text-bronze" />
                 </div>
-                <h3 className="text-xl font-semibold text-black">Download Catalogue</h3>
+                <h3 className="text-xl font-semibold text-black">Download Catalogues</h3>
               </div>
-              <p className="text-gray-700 mb-8">
-                Access our comprehensive catalogue featuring all our premium plywood collections, specifications, and finishes.
+              <p className="text-gray-700 mb-6">
+                Access our comprehensive catalogues featuring all our premium plywood collections, specifications, and finishes.
               </p>
-              <a href="/cudecor_E_catlouge_.pdf" download>
-                <Button className="w-full btn-luxury-solid">
-                  Download PDF (55.2 MB)
-                </Button>
-              </a>
+              
+              <div className="flex flex-col gap-8">
+                <a href="/cudecor_E_catlouge_.pdf" download className="block">
+                  <Button className="w-full btn-luxury-solid text-sm py-4 h-auto flex flex-col items-center gap-2">
+                    <span className="font-semibold">CU DECOR Catalogue</span>
+                    <span className="text-xs opacity-90">55.21 MB</span>
+                  </Button>
+                </a>
+                
+                <a href="/CU DECOR DIGITAL CATALOGUE (1).pdf" download className="block">
+                  <Button className="w-full btn-luxury-solid text-sm py-4 h-auto flex flex-col items-center gap-2">
+                    <span className="font-semibold">CU DECOR Digital</span>
+                    <span className="text-xs opacity-90">5.96 MB</span>
+                  </Button>
+                </a>
+                
+                <a href="/ULTIMO LAMX 2025-26.pdf" download className="block">
+                  <Button className="w-full btn-luxury-solid text-sm py-4 h-auto flex flex-col items-center gap-2">
+                    <span className="font-semibold">ULTIMO LAMX 2025-26</span>
+                    <span className="text-xs opacity-90">1.04 MB</span>
+                  </Button>
+                </a>
+              </div>
             </div>
 
             {/* Upload Section */}
@@ -101,62 +186,101 @@ const CatalogueSection = () => {
                 Share your project specifications or design files for personalized recommendations.
               </p>
 
-              {/* Drag and Drop Area */}
-              <div
-                onDragOver={handleDragOver}
-                onDragLeave={handleDragLeave}
-                onDrop={handleDrop}
-                className={`border-2 border-dashed rounded-lg p-8 text-center transition-colors ${
-                  isDragging
-                    ? "border-bronze bg-bronze/5"
-                    : "border-bronze/30 bg-gray-50"
-                }`}
-              >
-                <input
-                  type="file"
-                  id="fileInput"
-                  className="hidden"
-                  onChange={handleFileSelect}
-                  accept=".pdf,.doc,.docx,.xls,.xlsx,.jpg,.png"
-                />
-                <label htmlFor="fileInput" className="cursor-pointer">
-                  <FileUp className="w-8 h-8 text-bronze mx-auto mb-3" />
-                  <p className="text-black font-medium mb-1">
-                    {fileName ? fileName : "Drop files here or click to select"}
-                  </p>
-                  <p className="text-xs text-gray-600">
-                    Supported: PDF, Doc, Excel, Images
-                  </p>
-                </label>
-              </div>
-
-              <p className="text-[10px] text-gray-500 mt-3 text-center">
-                Note: Upload will open your email client to submit the file
-              </p>
-
-              {file ? (
-                <div className="grid grid-cols-2 gap-3 mt-6">
-                  <Button 
-                    onClick={handleClearFile}
-                    variant="outline"
-                    className="w-full border-2 border-gray-300 hover:border-red-500 hover:bg-red-50 hover:text-red-600"
-                  >
-                    Cancel
-                  </Button>
-                  <Button 
-                    onClick={handleUpload}
-                    className="w-full btn-luxury-solid"
-                  >
-                    Upload File
-                  </Button>
+              {uploadSuccess ? (
+                <div className="bg-green-50 border-2 border-green-500 rounded-lg p-6 text-center">
+                  <p className="text-green-700 font-semibold mb-2">✓ Submission Successful!</p>
+                  <p className="text-sm text-green-600">We'll contact you shortly.</p>
                 </div>
               ) : (
-                <Button 
-                  disabled
-                  className="w-full btn-luxury-solid mt-6 opacity-50"
-                >
-                  Select File
-                </Button>
+                <form onSubmit={handleSubmit} className="space-y-4">
+                  {/* User Details */}
+                  <div>
+                    <label className="block text-sm font-medium text-black mb-2">
+                      Your Name *
+                    </label>
+                    <input
+                      type="text"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                      required
+                      className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-bronze text-black"
+                      placeholder="Enter your name"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-black mb-2">
+                      Email Address *
+                    </label>
+                    <input
+                      type="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      required
+                      pattern="[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}"
+                      title="Please enter a valid email address (e.g., name@example.com)"
+                      className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-bronze text-black"
+                      placeholder="your.email@example.com"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-black mb-2">
+                      Phone Number *
+                    </label>
+                    <input
+                      type="tel"
+                      value={phone}
+                      onChange={(e) => setPhone(e.target.value)}
+                      required
+                      pattern="[0-9]{10}"
+                      maxLength={10}
+                      title="Please enter exactly 10 digits"
+                      className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-bronze text-black"
+                      placeholder="Enter 10-digit phone number"
+                    />
+                  </div>
+
+                  {/* File Upload */}
+                  <div>
+                    <label className="block text-sm font-medium text-black mb-2">
+                      Upload File *
+                    </label>
+                    <div className="border-2 border-dashed rounded-lg p-6 text-center border-bronze/30 bg-gray-50">
+                      <input
+                        type="file"
+                        id="fileInput"
+                        className="hidden"
+                        onChange={handleFileSelect}
+                        accept=".pdf,.doc,.docx,.xls,.xlsx,.jpg,.png"
+                        required
+                      />
+                      <label htmlFor="fileInput" className="cursor-pointer">
+                        <FileUp className="w-8 h-8 text-bronze mx-auto mb-2" />
+                        <p className="text-black font-medium mb-1">
+                          {fileName ? fileName : "Click to select file"}
+                        </p>
+                        <p className="text-xs text-gray-600">
+                          PDF, Doc, Excel, Images
+                        </p>
+                      </label>
+                    </div>
+                  </div>
+
+                  <Button 
+                    type="submit"
+                    disabled={isUploading || !file || !name || !email || !phone}
+                    className="w-full btn-luxury-solid disabled:opacity-50"
+                  >
+                    {isUploading ? 'Submitting...' : 'Submit'}
+                  </Button>
+                  {isUploading && (
+                    <div className="flex items-center justify-center gap-2 text-xs text-gray-600">
+                      <span className="h-4 w-4 rounded-full border-2 border-gray-300 border-t-bronze animate-spin" />
+                      <span>Uploading to Cloudinary... please wait.</span>
+                    </div>
+                  )}
+                </form>
               )}
             </div>
           </div>

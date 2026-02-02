@@ -10,6 +10,10 @@ const HeroSection = () => {
           src={heroBg}
           alt="Luxury architectural interior with premium wood surfaces"
           className="w-full h-full object-cover"
+          width={1920}
+          height={1080}
+          loading="eager"
+          decoding="async"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/40 to-background/80" />
       </div>

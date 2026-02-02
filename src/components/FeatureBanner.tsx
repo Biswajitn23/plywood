@@ -9,6 +9,8 @@ const FeatureBanner = () => {
           src={featureBg}
           alt="Luxury showroom with premium surfaces"
           className="w-full h-full object-cover"
+          loading="lazy"
+          decoding="async"
         />
         <div className="absolute inset-0 bg-background/70" />
       </div>

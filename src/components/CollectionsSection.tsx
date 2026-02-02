@@ -89,6 +89,8 @@ const CollectionsSection = () => {
                 src={collection.image}
                 alt={collection.name}
                 className="w-full aspect-[4/3] object-cover transition-transform duration-700 group-hover:scale-105"
+                loading="lazy"
+                decoding="async"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-background/60 to-transparent" />
               
