@@ -4,11 +4,27 @@ import { Menu, X } from "lucide-react";
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("");
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
+
+      // Detect active section
+      const sections = ["about", "products", "contact", "catalogue"];
+      const currentSection = sections.find(section => {
+        const element = document.getElementById(section);
+        if (element) {
+          const rect = element.getBoundingClientRect();
+          return rect.top <= 100 && rect.bottom >= 100;
+        }
+        return false;
+      });
+      if (currentSection) {
+        setActiveSection(`#${currentSection}`);
+      }
     };
+    
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -16,8 +32,8 @@ const Header = () => {
   const navItems = [
     { label: "About", href: "#about" },
     { label: "Products", href: "#products" },
-    { label: "Collections", href: "#collections" },
     { label: "Contact", href: "#contact" },
+    { label: "Catalogues", href: "#catalogue" },
   ];
 
   return (
@@ -46,7 +62,16 @@ const Header = () => {
               <a
                 key={item.label}
                 href={item.href}
-                className="relative text-xs tracking-[0.15em] uppercase text-white/90 hover:text-white transition-colors duration-300 after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-px after:bottom-0 after:left-0 after:bg-bronze after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left"
+                onClick={() => setActiveSection(item.href)}
+                className={`relative text-xs tracking-[0.15em] uppercase transition-all duration-300 ${
+                  activeSection === item.href
+                    ? "text-champagne font-semibold"
+                    : "text-white/90 hover:text-white"
+                } after:content-[''] after:absolute after:w-full after:h-px after:bottom-0 after:left-0 after:bg-bronze after:origin-bottom-right after:transition-transform after:duration-300 ${
+                  activeSection === item.href
+                    ? "after:scale-x-100"
+                    : "after:scale-x-0 hover:after:scale-x-100 hover:after:origin-bottom-left"
+                }`}
               >
                 {item.label}
               </a>
@@ -81,8 +106,15 @@ const Header = () => {
               <a
                 key={item.label}
                 href={item.href}
-                className="text-sm tracking-[0.15em] uppercase text-white/90 hover:text-white transition-colors"
-                onClick={() => setIsMobileMenuOpen(false)}
+                onClick={() => {
+                  setActiveSection(item.href);
+                  setIsMobileMenuOpen(false);
+                }}
+                className={`text-sm tracking-[0.15em] uppercase transition-colors ${
+                  activeSection === item.href
+                    ? "text-champagne font-semibold"
+                    : "text-white/90 hover:text-white"
+                }`}
               >
                 {item.label}
               </a>

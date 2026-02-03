@@ -119,7 +119,7 @@ const CatalogueSection = () => {
   };
 
   return (
-    <section className="py-20 lg:py-28 bg-background">
+    <section id="catalogue" className="py-20 lg:py-28 bg-background">
       <div className="container mx-auto px-6 lg:px-12">
         <div className="max-w-4xl mx-auto">
           {/* Section Header */}
@@ -137,36 +137,36 @@ const CatalogueSection = () => {
           </div>
 
           {/* Content Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-6">
             {/* Download Section */}
-            <div className="bg-cream p-8 lg:p-10 rounded-lg shadow-lg">
+            <div className="bg-cream p-6 md:p-8 lg:p-10 rounded-lg shadow-lg">
               <div className="flex items-center gap-3 mb-6">
                 <div className="w-10 h-10 rounded-full bg-bronze/10 flex items-center justify-center">
                   <Download className="w-5 h-5 text-bronze" />
                 </div>
-                <h3 className="text-xl font-semibold text-black">Download Catalogues</h3>
+                <h3 className="text-lg md:text-xl font-semibold text-black">Download Catalogues</h3>
               </div>
-              <p className="text-gray-700 mb-6">
+              <p className="text-sm md:text-base text-gray-700 mb-6">
                 Access our comprehensive catalogues featuring all our premium plywood collections, specifications, and finishes.
               </p>
               
-              <div className="flex flex-col gap-8">
+              <div className="flex flex-col gap-4 md:gap-8">
                 <a href="/cudecor_E_catlouge_.pdf" download className="block">
-                  <Button className="w-full btn-luxury-solid text-sm py-4 h-auto flex flex-col items-center gap-2">
+                  <Button className="w-full btn-luxury-solid text-sm py-4 h-auto flex flex-col items-center gap-2 touch-manipulation min-h-[60px]">
                     <span className="font-semibold">CU DECOR Catalogue</span>
                     <span className="text-xs opacity-90">55.21 MB</span>
                   </Button>
                 </a>
                 
                 <a href="/CU DECOR DIGITAL CATALOGUE (1).pdf" download className="block">
-                  <Button className="w-full btn-luxury-solid text-sm py-4 h-auto flex flex-col items-center gap-2">
+                  <Button className="w-full btn-luxury-solid text-sm py-4 h-auto flex flex-col items-center gap-2 touch-manipulation min-h-[60px]">
                     <span className="font-semibold">CU DECOR Digital</span>
                     <span className="text-xs opacity-90">5.96 MB</span>
                   </Button>
                 </a>
                 
                 <a href="/ULTIMO LAMX 2025-26.pdf" download className="block">
-                  <Button className="w-full btn-luxury-solid text-sm py-4 h-auto flex flex-col items-center gap-2">
+                  <Button className="w-full btn-luxury-solid text-sm py-4 h-auto flex flex-col items-center gap-2 touch-manipulation min-h-[60px]">
                     <span className="font-semibold">ULTIMO LAMX 2025-26</span>
                     <span className="text-xs opacity-90">1.04 MB</span>
                   </Button>
@@ -175,14 +175,14 @@ const CatalogueSection = () => {
             </div>
 
             {/* Upload Section */}
-            <div id="upload" className="bg-cream p-8 lg:p-10 rounded-lg shadow-lg">
+            <div id="upload" className="bg-cream p-6 md:p-8 lg:p-10 rounded-lg shadow-lg">
               <div className="flex items-center gap-3 mb-6">
                 <div className="w-10 h-10 rounded-full bg-bronze/10 flex items-center justify-center">
                   <FileUp className="w-5 h-5 text-bronze" />
                 </div>
-                <h3 className="text-xl font-semibold text-black">Upload Specifications</h3>
+                <h3 className="text-lg md:text-xl font-semibold text-black">Upload Specifications</h3>
               </div>
-              <p className="text-gray-700 mb-6">
+              <p className="text-sm md:text-base text-gray-700 mb-6">
                 Share your project specifications or design files for personalized recommendations.
               </p>
 
@@ -270,7 +270,7 @@ const CatalogueSection = () => {
                   <Button 
                     type="submit"
                     disabled={isUploading || !file || !name || !email || !phone}
-                    className="w-full btn-luxury-solid disabled:opacity-50"
+                    className="w-full btn-luxury-solid disabled:opacity-50 touch-manipulation min-h-[48px]"
                   >
                     {isUploading ? 'Submitting...' : 'Submit'}
                   </Button>
