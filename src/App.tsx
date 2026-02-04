@@ -7,6 +7,7 @@ import { useLenis } from "@/hooks/use-lenis";
 import Index from "./pages/Index";
 import Admin from "./pages/Admin";
 import NotFound from "./pages/NotFound";
+import WhatsAppChatbot from "@/components/WhatsAppChatbot";
 
 const queryClient = new QueryClient();
 
@@ -19,6 +20,7 @@ const App = () => {
         <div className="overflow-x-hidden w-full">
           <Toaster />
           <Sonner />
+          <WhatsAppChatbot />
           <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
           <Routes>
             <Route path="/" element={<Index />} />

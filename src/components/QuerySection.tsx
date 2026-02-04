@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Mail, Phone, MapPin, Instagram, MessageCircle } from "lucide-react";
+import { Mail, Phone, MapPin, Instagram } from "lucide-react";
 
 const QuerySection = () => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -14,11 +14,9 @@ const QuerySection = () => {
     const subject = formData.get("subject");
     const message = formData.get("message");
 
-    const whatsappNumber = "917677181818";
-    const whatsappMessage = `Name: ${name}\nEmail: ${email}\nPhone: ${phone || "Not provided"}\n\nSubject: ${subject}\n\nMessage:\n${message}`;
-
-    const whatsappLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`;
-    window.open(whatsappLink, "_blank");
+    // Create mailto link
+    const mailtoLink = `mailto:info@plywoodhome.com?subject=${encodeURIComponent(subject as string)}&body=${encodeURIComponent(`Name: ${name}\nEmail: ${email}\nPhone: ${phone || "Not provided"}\n\nMessage:\n${message}`)}`;
+    window.location.href = mailtoLink;
   };
 
   return (
@@ -55,26 +53,6 @@ const QuerySection = () => {
                   </a>
                   <p className="text-muted-foreground">Mon - Sat: 9:00 AM - 6:00 PM</p>
                   <p className="text-muted-foreground">Sunday: Closed</p>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-4">
-                <div className="w-12 h-12 rounded-full bg-bronze/10 flex items-center justify-center flex-shrink-0">
-                  <MessageCircle className="w-5 h-5 text-bronze" />
-                </div>
-                <div className="flex-1">
-                  <h3 className="font-medium text-cream-foreground mb-1">WhatsApp</h3>
-                  <a
-                    href="https://wa.me/917677181818"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <Button className="mt-2 bg-green-500 hover:bg-green-600 active:bg-green-700 text-white flex items-center gap-2 touch-manipulation min-h-[44px] px-4">
-                      <MessageCircle className="w-4 h-4" />
-                      Open Chat
-                    </Button>
-                  </a>
-                  <p className="text-muted-foreground text-sm mt-2">Quick response available</p>
                 </div>
               </div>
 
@@ -219,7 +197,7 @@ const QuerySection = () => {
               </Button>
 
               <p className="text-[10px] md:text-xs text-gray-400 text-center">
-                Note: This will open WhatsApp to send your query
+                Note: For WhatsApp support, use the chat widget in the bottom right corner
               </p>
             </form>
           </div>

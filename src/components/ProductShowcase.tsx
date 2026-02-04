@@ -82,6 +82,13 @@ const ProductShowcase = () => {
     }
   }, [showAll]);
 
+  const handleRequestQuote = (product: typeof products[0]) => {
+    const whatsappNumber = "917677181818";
+    const whatsappMessage = `Hi! I'm interested in the following product:\n\nProduct Name: ${product.name}\nProduct Code: ${product.code}\nSize: ${product.size}\n\nCould you please provide a quote for this product?`;
+    const whatsappLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`;
+    window.open(whatsappLink, "_blank");
+  };
+
   const handleToggle = () => {
     if (showAll) {
       // First scroll to button, then collapse
@@ -187,7 +194,7 @@ const ProductShowcase = () => {
                 <DialogTitle className="text-xl md:text-3xl font-serif pr-8">{selectedProduct.name}</DialogTitle>
               </DialogHeader>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 overflow-y-auto flex-1">
-                <div className="h-[500px] overflow-hidden rounded-lg border border-border/20 bg-gray-50 flex items-center justify-center flex-shrink-0">
+                <div className="h-[300px] md:h-[500px] overflow-hidden rounded-lg border border-border/20 bg-gray-50 flex items-center justify-center flex-shrink-0">
                   <img
                     src={selectedProduct.image}
                     alt={selectedProduct.name}
@@ -223,13 +230,15 @@ const ProductShowcase = () => {
                     </div>
                   </div>
                   <div className="pt-2 md:pt-4">
-                    <a 
-                      href="#contact" 
-                      className="btn-luxury-solid w-full inline-block text-center text-sm md:text-base touch-manipulation min-h-[44px] flex items-center justify-center"
-                      onClick={() => setIsDialogOpen(false)}
+                    <button 
+                      onClick={() => {
+                        handleRequestQuote(selectedProduct);
+                        setIsDialogOpen(false);
+                      }}
+                      className="btn-luxury-solid w-full text-center text-sm md:text-base touch-manipulation min-h-[44px] flex items-center justify-center"
                     >
-                      Request Quote
-                    </a>
+                      Ask for Quote
+                    </button>
                   </div>
                 </div>
               </div>
