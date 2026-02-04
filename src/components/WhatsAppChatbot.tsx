@@ -18,7 +18,7 @@ const WhatsAppChatbot = () => {
       {!isOpen && (
         <button
           onClick={() => setIsOpen(true)}
-          className="fixed bottom-32 right-6 z-40 bg-green-500 hover:bg-green-600 text-white rounded-full p-4 shadow-lg transition-all duration-300 hover:scale-110 active:scale-95"
+          className="fixed bottom-6 left-6 z-40 bg-green-500 hover:bg-green-600 text-white rounded-full p-4 shadow-lg transition-all duration-300 hover:scale-110 active:scale-95"
           aria-label="Open WhatsApp chat"
         >
           <MessageCircle className="w-6 h-6" />
@@ -27,7 +27,7 @@ const WhatsAppChatbot = () => {
 
       {/* Chat Popup */}
       {isOpen && (
-        <div className="fixed bottom-32 left-6 z-40 w-80 max-w-[calc(100vw-32px)] bg-white rounded-lg shadow-2xl overflow-hidden animate-in fade-in slide-in-from-bottom-4 duration-300">
+        <div className="fixed bottom-6 left-6 z-40 w-80 max-w-[calc(100vw-32px)] bg-white rounded-lg shadow-2xl overflow-hidden animate-in fade-in slide-in-from-bottom-4 duration-300">
           {/* Header */}
           <div className="bg-green-500 text-white p-4 flex items-center justify-between">
             <div>
