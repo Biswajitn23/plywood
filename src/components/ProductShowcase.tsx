@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, useCallback } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import productWalnut from "@/assets/product-walnut.jpg";
 import productOak from "@/assets/product-oak.jpg";
@@ -42,17 +42,30 @@ const products = [
   { id: 32, name: "AURUM SPARKLE", code: "3604", size: "5 inch x 8 feet", description: "Brilliant golden surface with glittering finish. Ultimate luxury choice for prestigious interior projects.", image: "/products/CU DECOR DIGITAL CATALOGUE (1)_cropped_page-0035.jpg" },
 ];
 
+const premiumCollectionDesigns = [
+  { code: "3302", name: "SOFT SPECTRUM" },
+  { code: "3303", name: "SERENE SHADES" },
+  { code: "3306", name: "ASH MIST" },
+  { code: "3307", name: "GENTLE AURA" },
+  { code: "3308", name: "PASTEL HARMONY" },
+];
+
 const ProductShowcase = () => {
   const [showAll, setShowAll] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<typeof products[0] | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [loadedImages, setLoadedImages] = useState<Set<number>>(new Set([...Array(6).keys()].map((_, i) => i + 1)));
+  const [selectedPremiumDesign, setSelectedPremiumDesign] = useState<string>("");
+  const [showPremiumDesignPicker, setShowPremiumDesignPicker] = useState(false);
+  const [loadedImages, setLoadedImages] = useState<Set<number>>(new Set(products.slice(0, 6).map(p => p.id)));
   const displayProducts = showAll ? products : products.slice(0, 6);
   const buttonRef = useRef<HTMLDivElement>(null);
   const imageRefs = useRef<Map<number, HTMLImageElement>>(new Map());
 
   // Set up Intersection Observer for progressive image loading
   useEffect(() => {
+    // Preload all visible products immediately
+    setLoadedImages(new Set(displayProducts.map(p => p.id)));
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -65,7 +78,7 @@ const ProductShowcase = () => {
           }
         });
       },
-      { rootMargin: '100px', threshold: 0 }
+      { rootMargin: '300px', threshold: 0 }
     );
 
     document.querySelectorAll('[data-product-id]').forEach(el => {
@@ -82,9 +95,23 @@ const ProductShowcase = () => {
     }
   }, [showAll]);
 
-  const handleRequestQuote = (product: typeof products[0]) => {
+  useEffect(() => {
+    if (selectedProduct?.id !== 10) {
+      setSelectedPremiumDesign("");
+      setShowPremiumDesignPicker(false);
+    }
+  }, [selectedProduct]);
+
+  const handleRequestQuote = (product: typeof products[0], designCode?: string) => {
     const whatsappNumber = "917677181818";
-    const whatsappMessage = `Hi! I'm interested in the following product:\n\nProduct Name: ${product.name}\nProduct Code: ${product.code}\nSize: ${product.size}\n\nCould you please provide a quote for this product?`;
+    const selectedDesign = premiumCollectionDesigns.find(design => design.code === designCode);
+    const designLine = product.id === 10 && selectedDesign
+      ? `Design Code: ${selectedDesign.code}\nDesign Name: ${selectedDesign.name}\n`
+      : "";
+    const productCodeLine = product.id === 10
+      ? (selectedDesign ? `Product Code: ${selectedDesign.code}\n` : "")
+      : `Product Code: ${product.code}\n`;
+    const whatsappMessage = `Hi! I'm interested in the following product:\n\nProduct Name: ${product.name}\n${designLine}${productCodeLine}Size: ${product.size}\n\nCould you please provide a quote for this product?`;
     const whatsappLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`;
     window.open(whatsappLink, "_blank");
   };
@@ -143,7 +170,7 @@ const ProductShowcase = () => {
                     src={product.image}
                     alt={product.name}
                     className="w-full h-full object-cover transition-all duration-500 group-hover:scale-105 fade-in"
-                    loading="lazy"
+                    loading={index < 6 ? "eager" : "lazy"}
                     decoding="async"
                   />
                 ) : (
@@ -229,10 +256,51 @@ const ProductShowcase = () => {
                       })}
                     </div>
                   </div>
+                  {selectedProduct.id === 10 && showPremiumDesignPicker && (
+                    <div className="rounded-md border border-border/40 bg-muted/30 p-3 md:p-4">
+                      <h4 className="text-xs md:text-sm font-semibold text-gray-600 uppercase mb-2">
+                        Choose Design
+                      </h4>
+                      <div className="grid grid-cols-1 gap-2">
+                        {premiumCollectionDesigns.map((design) => (
+                          <label
+                            key={design.code}
+                            className={`flex items-center justify-between gap-3 rounded-md border px-3 py-2 text-xs md:text-sm transition-colors cursor-pointer ${
+                              selectedPremiumDesign === design.code
+                                ? "border-champagne bg-champagne/10"
+                                : "border-border/40 hover:border-champagne/70"
+                            }`}
+                          >
+                            <span className="font-medium text-foreground">
+                              {design.name}
+                            </span>
+                            <span className="text-champagne font-semibold">{design.code}</span>
+                            <input
+                              type="radio"
+                              name="premium-design"
+                              value={design.code}
+                              className="sr-only"
+                              checked={selectedPremiumDesign === design.code}
+                              onChange={() => setSelectedPremiumDesign(design.code)}
+                            />
+                          </label>
+                        ))}
+                      </div>
+                      {!selectedPremiumDesign && (
+                        <p className="mt-2 text-[11px] md:text-xs text-muted-foreground">
+                          Please select a design to request a quote.
+                        </p>
+                      )}
+                    </div>
+                  )}
                   <div className="pt-2 md:pt-4">
                     <button 
                       onClick={() => {
-                        handleRequestQuote(selectedProduct);
+                        if (selectedProduct.id === 10 && !selectedPremiumDesign) {
+                          setShowPremiumDesignPicker(true);
+                          return;
+                        }
+                        handleRequestQuote(selectedProduct, selectedPremiumDesign);
                         setIsDialogOpen(false);
                       }}
                       className="btn-luxury-solid w-full text-center text-sm md:text-base touch-manipulation min-h-[44px] flex items-center justify-center"

@@ -11,7 +11,7 @@ const Header = () => {
       setIsScrolled(window.scrollY > 50);
 
       // Detect active section
-      const sections = ["about", "products", "contact", "catalogue"];
+      const sections = ["hero", "about", "products", "contact", "catalogue"];
       const currentSection = sections.find(section => {
         const element = document.getElementById(section);
         if (element) {
@@ -22,6 +22,8 @@ const Header = () => {
       });
       if (currentSection) {
         setActiveSection(`#${currentSection}`);
+      } else {
+        setActiveSection("");
       }
     };
     
