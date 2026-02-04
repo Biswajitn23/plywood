@@ -27,7 +27,7 @@ const WhatsAppChatbot = () => {
 
       {/* Chat Popup */}
       {isOpen && (
-        <div className="fixed bottom-32 right-6 z-40 w-80 max-w-[calc(100vw-32px)] bg-white rounded-lg shadow-2xl overflow-hidden animate-in fade-in slide-in-from-bottom-4 duration-300">
+        <div className="fixed bottom-32 left-6 z-40 w-80 max-w-[calc(100vw-32px)] bg-white rounded-lg shadow-2xl overflow-hidden animate-in fade-in slide-in-from-bottom-4 duration-300">
           {/* Header */}
           <div className="bg-green-500 text-white p-4 flex items-center justify-between">
             <div>
