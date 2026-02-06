@@ -88,13 +88,7 @@ src/
 
 ## 🔄 Deployment
 
-This project is deployed on **Vercel**. The `vercel.json` configuration ensures proper client-side routing for all routes including `/admin`.
-
-### Deploy to Vercel
-
-1. Push to GitHub
-2. Vercel automatically detects changes and deploys
-3. All routes handled by React Router work seamlessly
+This project is deployed on **Vercel**.
 
 ## 👥 Contributors
 
@@ -103,13 +97,6 @@ Crafted with excellence by [Nitin](mailto:nitin152105@gmail.com) & [Biswajit](ma
 ## 📄 License
 
 This project is proprietary and owned by Plywood Home.
-
-## 📞 Contact
-
-- **Email** - sales@plywoodhome.com
-- **Phone** - +91 7677181818
-- **WhatsApp** - [Chat with us](https://wa.me/917677181818)
-- **Address** - Opposite Gargee Grand, Near Mohini Market, Exhibition Rd, Patna, Bihar 800001
 
 ---
 
