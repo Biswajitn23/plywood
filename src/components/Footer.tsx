@@ -177,9 +177,27 @@ const Footer = () => {
       <div className="border-t border-border/50">
         <div className="container mx-auto px-6 lg:px-12 py-6">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-            <p className="text-xs text-muted-foreground">
-              © 2026 Plywood Home. All rights reserved.
-            </p>
+            <div className="flex flex-col items-center md:items-start gap-2">
+              <p className="text-xs text-muted-foreground">
+                © 2026 Plywood Home. All rights reserved.
+              </p>
+              <p className="text-xs text-muted-foreground/80">
+                Crafted with excellence by{" "}
+                <a 
+                  href="mailto:nitin152105@gmail.com" 
+                  className="hover:text-champagne transition-colors"
+                >
+                  Nitin
+                </a>
+                {" & "}
+                <a 
+                  href="mailto:nbiswajit978@gmail.com" 
+                  className="hover:text-champagne transition-colors"
+                >
+                  Biswajit
+                </a>
+              </p>
+            </div>
             <div className="flex items-center gap-6">
               <button 
                 onClick={() => setIsPrivacyModalOpen(true)}
