@@ -80,11 +80,12 @@ const Header = () => {
             ))}
           </nav>
 
-          {/* CTA Button */}
-          <div className="hidden lg:block">
+          {/* CTA Button & Admin Button */}
+          <div className="hidden lg:flex items-center gap-3">
             <a href="#upload" className="btn-luxury text-xs py-3 px-6">
               Request Samples
             </a>
+            <a href="/admin" className="btn-luxury text-xs py-2 px-4 bg-bronze/80 hover:bg-bronze text-white rounded ml-2" style={{fontSize:'12px'}}>Admin</a>
           </div>
 
           {/* Mobile Menu Button */}
@@ -124,6 +125,7 @@ const Header = () => {
             <a href="#upload" className="btn-luxury text-xs py-3 px-6 text-center mt-4">
               Request Samples
             </a>
+            <a href="/admin" className="btn-luxury text-xs py-2 px-4 bg-bronze/80 hover:bg-bronze text-white rounded mt-2" style={{fontSize:'12px'}}>Admin</a>
           </nav>
         </div>
       </div>
