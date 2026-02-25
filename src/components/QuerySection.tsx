@@ -15,7 +15,7 @@ const QuerySection = () => {
     const message = formData.get("message");
 
     // Create mailto link
-    const mailtoLink = `mailto:info@plywoodhome.com?subject=${encodeURIComponent(subject as string)}&body=${encodeURIComponent(`Name: ${name}\nEmail: ${email}\nPhone: ${phone || "Not provided"}\n\nMessage:\n${message}`)}`;
+    const mailtoLink = `mailto:help.plywoodhome@gmail.com?subject=${encodeURIComponent(subject as string)}&body=${encodeURIComponent(`Name: ${name}\nEmail: ${email}\nPhone: ${phone || "Not provided"}\n\nMessage:\n${message}`)}`;
     window.location.href = mailtoLink;
   };
 
@@ -51,6 +51,13 @@ const QuerySection = () => {
                   >
                     +91 7677181818
                   </a>
+                  <br />
+                  <a
+                    href="tel:+919708191919"
+                    className="text-muted-foreground hover:text-bronze transition-colors"
+                  >
+                    +91 9708191919
+                  </a>
                   <p className="text-muted-foreground">Mon - Sat: 9:00 AM - 6:00 PM</p>
                   <p className="text-muted-foreground">Sunday: Closed</p>
                 </div>
@@ -63,16 +70,10 @@ const QuerySection = () => {
                 <div>
                   <h3 className="font-medium text-cream-foreground mb-1">Email</h3>
                   <a
-                    href="mailto:info@plywoodhome.com"
+                    href="mailto:help.plywoodhome@gmail.com"
                     className="text-muted-foreground hover:text-bronze transition-colors"
                   >
-                    info@plywoodhome.com
-                  </a>
-                  <a
-                    href="mailto:sales@plywoodhome.com"
-                    className="text-muted-foreground hover:text-bronze transition-colors"
-                  >
-                    sales@plywoodhome.com
+                    help.plywoodhome@gmail.com
                   </a>
                 </div>
               </div>
@@ -89,13 +90,11 @@ const QuerySection = () => {
                     rel="noopener noreferrer"
                     className="text-muted-foreground hover:text-bronze transition-colors"
                   >
-                    Opposite Gargee Grand,
+                    Krishna Market, Exhibition Road
                     <br />
-                    Near Mohini Market,
+                    Patna-800 001 Opp. Hotel Tolsons
                     <br />
-                    Exhibition Rd, Patna,
-                    <br />
-                    Bihar 800001
+                    Phone: +91 7677181818, +91 9708191919
                   </a>
                 </div>
               </div>

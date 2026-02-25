@@ -92,7 +92,7 @@ This project is deployed on **Vercel**.
 
 ## 👥 Contributors
 
-Crafted with excellence by [Nitin](mailto:nitin152105@gmail.com) & [Biswajit](mailto:nbiswajit978@gmail.com)
+Crafted with excellence by [Nitin & Biswajit](mailto:help.plywoodhome@gmail.com)
 
 ## 📄 License
 

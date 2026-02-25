@@ -136,25 +136,22 @@ const Footer = () => {
                   rel="noopener noreferrer"
                   className="text-sm text-muted-foreground hover:text-foreground transition-colors"
                 >
-                  Opposite Gargee Grand, Near Mohini Market, Exhibition Rd, Patna, Bihar 800001
+                  Krishna Market, Exhibition Road Patna-800 001 Opp. Hotel Tolsons
                 </a>
               </li>
               <li className="flex items-center gap-3">
                 <Phone size={18} className="text-champagne flex-shrink-0" />
-                <a
-                  href="tel:+917677181818"
-                  className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-                >
-                  +91 7677181818
-                </a>
+                <span className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+                  <a href="tel:+917677181818">+91 7677181818</a>, <a href="tel:+919708191919">+91 9708191919</a>
+                </span>
               </li>
               <li className="flex items-center gap-3">
                 <Mail size={18} className="text-champagne flex-shrink-0" />
                 <a
-                  href="mailto:sales@plywoodhome.com"
+                  href="mailto:help.plywoodhome@gmail.com"
                   className="text-sm text-muted-foreground hover:text-foreground transition-colors"
                 >
-                  sales@plywoodhome.com
+                  help.plywoodhome@gmail.com
                 </a>
               </li>
               <li className="flex items-center gap-3">
@@ -184,14 +181,14 @@ const Footer = () => {
               <p className="text-xs text-muted-foreground/80">
                 Crafted with excellence by{" "}
                 <a 
-                  href="mailto:nitin152105@gmail.com" 
+                  href="mailto:help.plywoodhome@gmail.com" 
                   className="hover:text-champagne transition-colors"
                 >
                   Nitin
                 </a>
                 {" & "}
                 <a 
-                  href="mailto:nbiswajit978@gmail.com" 
+                  href="mailto:help.plywoodhome@gmail.com" 
                   className="hover:text-champagne transition-colors"
                 >
                   Biswajit
@@ -386,7 +383,7 @@ const Footer = () => {
                 <section>
                   <h4 className="text-sm font-semibold text-champagne mb-2">6. Contact Us</h4>
                   <p className="text-sm text-muted-foreground leading-relaxed">
-                    If you have questions about this Privacy Policy, please contact us at info@plywoodhome.com or call +91 7677181818.
+                    If you have questions about this Privacy Policy, please contact us at help.plywoodhome@gmail.com or call +91 7677181818.
                   </p>
                 </section>
               </div>

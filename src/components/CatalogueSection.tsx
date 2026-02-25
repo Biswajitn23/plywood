@@ -91,7 +91,7 @@ const CatalogueSection = () => {
         }
       }
 
-      const emailAddress = "sales@plywoodhome.com";
+      const emailAddress = "help.plywoodhome@gmail.com";
       
       // Email notification
       const emailSubject = "New File Submission";
